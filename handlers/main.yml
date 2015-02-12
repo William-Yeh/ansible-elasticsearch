@@ -1,0 +1,11 @@
+---
+# file: handlers/main.yml
+#
+
+- name: restart elasticsearch
+  sudo: True
+  service: name=elasticsearch state=restarted
+
+- name: stop elasticsearch
+  sudo: True
+  service: name=elasticsearch state=stopped

@@ -1,0 +1,28 @@
+---
+
+#
+# variables needed to be defined in user's playbook
+#
+
+#elasticsearch_version: 1.4.2
+
+
+
+#
+# user-configurable defaults
+#
+
+# use G1GC for JVM?
+elasticsearch_use_g1gc: false
+
+
+
+#
+# internals; change them with caution!
+#
+
+elasticsearch_include:    "/usr/share/elasticsearch/bin/elasticsearch.in.sh"
+elasticsearch_plugin_exe: "/usr/share/elasticsearch/bin/plugin"
+
+elasticsearch_config:     "/etc/elasticsearch"
+#elasticsearch_config:    "/usr/share/elasticsearch/config"

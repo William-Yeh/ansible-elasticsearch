@@ -1,0 +1,43 @@
+---
+# file: tasks/main.yml
+# Top-level installer for Elasticsearch.
+#
+# @see https://github.com/elasticsearch/elasticsearch
+#
+
+- name: delegate to DEB system for installation
+  include: use-deb.yml
+  when: ansible_os_family == "Debian"
+
+- name: delegate to RPM system for installation
+  include: use-rpm.yml
+  when: ansible_os_family == "RedHat"
+
+
+
+- name: set JVM memory
+  include: memory.yml
+
+- name: install plugins
+  sudo: True
+  shell: "{{ elasticsearch_plugin_exe }}  --remove  {{ item }} ; {{ elasticsearch_plugin_exe }}  --install  {{ item }}"
+  with_items: elasticsearch_plugins | default([])
+
+- name: install other plugins
+  sudo: True
+  shell: "{{ elasticsearch_plugin_exe }}  --remove  {{ item.name }} ; {{ elasticsearch_plugin_exe }}  --install  {{ item.name }}  --url  {{ item.url }}"
+  with_items: elasticsearch_other_plugins | default([])
+
+
+
+- name: copy new "elasticsearch.yml" verbatim from main playbook's
+  sudo: True
+  copy: src={{ playbook_dir }}/{{ elasticsearch_conf_copy }}  dest={{ elasticsearch_config }}/elasticsearch.yml  backup=yes
+  when: elasticsearch_conf_copy is defined
+  notify: restart elasticsearch
+
+- name: copy (from template) new "elasticsearch.yml" from main playbook's
+  sudo: True
+  template: src={{ playbook_dir }}/{{ elasticsearch_conf_template }}  dest={{ elasticsearch_config }}/elasticsearch.yml  backup=yes
+  when: elasticsearch_conf_template is defined
+  notify: restart elasticsearch

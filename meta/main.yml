@@ -1,0 +1,32 @@
+---
+# meta/main.yml
+
+galaxy_info:
+    author: williamyeh
+    description: Install Elasticsearch
+    license: Apache
+
+    # for the `playbook_dir` bug:
+    # https://github.com/ansible/ansible/issues/8317
+    min_ansible_version: 1.7.1
+    platforms:
+
+        - name: Ubuntu
+          versions:
+              - precise
+              - trusty
+
+        - name: Debian
+          versions:
+              - wheezy
+
+        - name: EL
+          versions:
+              - 6
+              - 7
+
+    categories:
+        - database
+        - database:nosql
+
+dependencies: []

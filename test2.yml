@@ -1,0 +1,43 @@
+- hosts: all
+
+  roles:
+    - williamyeh.oracle-java
+
+  tasks:
+    - include: 'tasks/main.yml'
+  handlers:
+    - include: 'handlers/main.yml'
+  vars_files:
+    - 'defaults/main.yml'
+
+  vars:
+    elasticsearch_version: 1.4.2
+
+    elasticsearch_use_g1gc: true
+    elasticsearch_heap_size: 6g
+
+    elasticsearch_plugins:
+        - elasticsearch/elasticsearch-analysis-smartcn/2.3.0
+        - elasticsearch/elasticsearch-transport-thrift/2.3.0
+        - elasticsearch/elasticsearch-mapper-attachments/2.3.0
+        - lmenezes/elasticsearch-kopf
+        - mobz/elasticsearch-head
+        - lukas-vlcek/bigdesk
+        - polyfractal/elasticsearch-inquisitor
+        - karmi/elasticsearch-paramedic
+        - polyfractal/elasticsearch-segmentspy
+
+    elasticsearch_other_plugins:
+        - name: analysis-ik
+          url:  https://github.com/medcl/elasticsearch-rtf/raw/master/plugins/analysis-ik/elasticsearch-analysis-ik-1.2.6.jar
+          memo: https://github.com/medcl/elasticsearch-analysis-ik
+        - name: analysis-mmseg
+          url:  https://github.com/medcl/elasticsearch-rtf/raw/master/plugins/analysis-mmseg/elasticsearch-analysis-mmseg-1.2.2.jar
+          memo: https://github.com/medcl/elasticsearch-analysis-mmseg
+
+    # copy verbatim
+    elasticsearch_conf_copy: "files/elasticsearch.yml"
+
+    # copy through Ansible's template system
+    #elasticsearch_conf_template: "templates/elasticsearch.yml.j2"
+

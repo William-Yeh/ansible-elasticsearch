@@ -1,0 +1,28 @@
+---
+# file: tasks/use-rpm.yml
+#
+# Configure Elasticsearch from RPM file.  
+#
+# @see http://docs.fluentd.org/articles/install-by-rpm
+# @see http://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh
+#
+
+
+- name: install libselinux-python binary for Ansible to work 
+  sudo: True
+  yum: name=libselinux-python state=present
+
+
+- name: download RPM file
+  get_url: url="https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.noarch.rpm"  dest=/tmp/es.rpm
+
+- name: install from RPM
+  sudo: True
+  yum: name=/tmp/es.rpm  state=present
+
+
+
+- name: set INIT status (SysV style)
+  sudo: True
+  action: shell chkconfig --add elasticsearch
+  action: shell chkconfig --level 345 elasticsearch on
