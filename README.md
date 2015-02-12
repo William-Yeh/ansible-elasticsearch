@@ -174,6 +174,4 @@ Licensed under the Apache License V2.0. See the [LICENSE file](LICENSE) for deta
 
 ## History
 
-Modified from my Dockerized Fluentd app:
-
-  - [williamyeh/fluentd](https://github.com/William-Yeh/docker-fluentd)
+None.
