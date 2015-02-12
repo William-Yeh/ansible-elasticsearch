@@ -5,7 +5,7 @@ williamyeh.elasticsearch for Ansible Galaxy
 
 ## Summary
 
-Role name in Ansible Galaxy: **[williamyeh.elasticsearch](https://galaxy.ansible.com/list#/roles/XXXXXXXX)**
+Role name in Ansible Galaxy: **[williamyeh.elasticsearch](https://galaxy.ansible.com/list#/roles/2859)**
 
 This Ansible role has the following features for [Elasticsearch](http://www.elasticsearch.org/):
 
