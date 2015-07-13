@@ -4,7 +4,7 @@
 # variables needed to be defined in user's playbook
 #
 
-#elasticsearch_version: 1.4.2
+#elasticsearch_version: 1.6.0
 
 
 

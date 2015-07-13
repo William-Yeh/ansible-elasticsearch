@@ -1,4 +1,5 @@
 - hosts: all
+  sudo: True
 
   roles:
     - williamyeh.oracle-java
@@ -11,13 +12,13 @@
     - 'defaults/main.yml'
 
   vars:
-    elasticsearch_version: 1.4.2
+    elasticsearch_version: 1.6.0
 
     # copy verbatim
     #elasticsearch_conf_copy: "files/elasticsearch.yml"
 
     # copy through Ansible's template system
-    elasticsearch_conf_template: "templates/elasticsearch.yml.j2"
+    #elasticsearch_conf_template: "templates/elasticsearch.yml.j2"
 
 
     elasticsearch_heap_size: 200m

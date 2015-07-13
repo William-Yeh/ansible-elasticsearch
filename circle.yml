@@ -1,0 +1,37 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker version
+
+    - docker build  -f test/Dockerfile-ubuntu14.04  -t es_trusty   .
+    - docker build  -f test/Dockerfile-ubuntu12.04  -t es_precise  .
+    - docker build  -f test/Dockerfile-debian8      -t es_jessie   .
+    - docker build  -f test/Dockerfile-debian7      -t es_wheezy   .
+    - docker build  -f test/Dockerfile-centos7      -t es_centos7  .
+    - docker build  -f test/Dockerfile-centos6      -t es_centos6  .
+
+test:
+  override:
+    - docker run -d -v $(pwd):/data --name c1 es_trusty
+    - docker run -d -v $(pwd):/data --name c2 es_precise
+    - docker run -d -v $(pwd):/data --name c3 es_jessie
+    - docker run -d -v $(pwd):/data --name c4 es_wheezy
+    - docker run -d -v $(pwd):/data --name c6 es_centos6
+
+    - docker run -d -v $(pwd):/data --name c5 es_centos7
+    - sleep 30
+    - IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' c5)  ;  echo http://$IP:9200/ > url
+    - cat url  |  xargs -t -n 1 curl -v -o result-centos7
+
+
+    - echo "==> Validating the test results..."
+    - grep 'lucene_version'   result-ubuntu14.04
+    - grep 'lucene_version'   result-ubuntu12.04
+    - grep 'lucene_version'   result-debian8
+    - grep 'lucene_version'   result-debian7
+    - grep 'lucene_version'   result-centos7
+    - grep 'lucene_version'   result-centos6

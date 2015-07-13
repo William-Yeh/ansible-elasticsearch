@@ -1,0 +1,39 @@
+# Dockerfile for building image that contains software stack provisioned by Ansible.
+#
+# Version  1.0
+#
+
+
+# pull base image
+FROM williamyeh/ansible:centos6-onbuild
+
+MAINTAINER William Yeh <william.pjyeh@gmail.com>
+
+
+#
+# build phase
+#
+
+RUN echo "===> Installing the missing "tar" utility for Docker image..."  && \
+    yum -y install tar which
+
+ENV REQUIREMENTS  test-requirements.yml
+ENV PLAYBOOK      test.yml
+RUN ansible-playbook-wrapper -vvv
+
+
+
+#
+# test phase
+#
+
+RUN echo "===> Installing curl for testing purpose..."  && \
+    yum -y install curl
+
+COPY test/gen-url.sh  /
+
+
+VOLUME ["/data"]
+ENV    RESULT     /data/result-centos6
+
+CMD  service elasticsearch start  &&  sleep 30  &&  /gen-url.sh > url  &&  cat url | xargs -t -n 1 curl -v -o $RESULT

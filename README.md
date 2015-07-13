@@ -2,6 +2,10 @@
 williamyeh.elasticsearch for Ansible Galaxy
 ============
 
+[![Circle CI](https://circleci.com/gh/William-Yeh/ansible-elasticsearch.svg?style=shield)](https://circleci.com/gh/William-Yeh/ansible-elasticsearch)
+
+
+
 
 ## Summary
 
@@ -104,7 +108,7 @@ Simple example:
     - williamyeh.elasticsearch
 
   vars:
-    elasticsearch_version: 1.4.2
+    elasticsearch_version: 1.6.0
 ```
 
 

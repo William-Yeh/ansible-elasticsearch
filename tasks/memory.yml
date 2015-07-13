@@ -4,7 +4,6 @@
 #
 
 - name: patch to use G1GC, if necessary
-  sudo: True
   lineinfile: >
     dest="{{ elasticsearch_include }}" 
     regexp='^(.+)-XX:\+UseParNewGC"' 
@@ -14,7 +13,6 @@
   notify: restart elasticsearch
 
 - name: patch to use G1GC, if necessary
-  sudo: True
   lineinfile:
     dest="{{ elasticsearch_include }}"
     regexp='^(.+)-XX:\+UseConcMarkSweepGC"'
@@ -26,7 +24,6 @@
 
 
 #- name: set ES_HEAP_SIZE, if necessary
-#  sudo: True
 #  lineinfile: >
 #    dest=/etc/environment 
 #    regexp='^ES_HEAP_SIZE=(.+)' 
@@ -35,7 +32,6 @@
 #  notify: restart elasticsearch
 
 - name: set ES_HEAP_SIZE in INIT script, if necessary
-  sudo: True
   lineinfile: >
     dest=/etc/init.d/elasticsearch
     regexp='^export ES_HEAP_SIZE' 
@@ -46,7 +42,6 @@
 
 
 - name: set ES_HEAP_SIZE in /etc/default/elasticsearch, if necessary
-  sudo: True
   lineinfile: >
     dest=/etc/default/elasticsearch
     regexp='^.?ES_HEAP_SIZE=' 
@@ -58,7 +53,6 @@
 
 # useful in CentOS 7 systemd
 - name: set ES_HEAP_SIZE in /etc/sysconfig/elasticsearch, if necessary
-  sudo: True
   lineinfile: >
     dest=/etc/sysconfig/elasticsearch
     regexp='^.?ES_HEAP_SIZE=' 

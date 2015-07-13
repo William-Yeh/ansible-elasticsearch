@@ -1,4 +1,5 @@
 - hosts: all
+  sudo: True
 
   roles:
     - williamyeh.oracle-java

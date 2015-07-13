@@ -6,14 +6,14 @@
 #
 
 - name: download DEB file
-  get_url: url="https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.deb"  dest=/tmp/es.deb
+  get_url: url="https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.deb"  dest=/tmp/es.deb
 
 - name: install from DEB
-  sudo: True
   apt: deb=/tmp/es.deb
 
 
+- name: set INIT status
+  service: name=elasticsearch enabled=yes
 
-- name: set INIT status (SysV style)
-  sudo: True
-  shell: update-rc.d elasticsearch defaults
+#- name: set INIT status (SysV style)
+#  shell: update-rc.d elasticsearch defaults

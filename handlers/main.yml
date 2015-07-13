@@ -3,9 +3,9 @@
 #
 
 - name: restart elasticsearch
-  sudo: True
   service: name=elasticsearch state=restarted
+  when: elasticsearch_use_service|bool
 
 - name: stop elasticsearch
-  sudo: True
   service: name=elasticsearch state=stopped
+  when: elasticsearch_use_service|bool
