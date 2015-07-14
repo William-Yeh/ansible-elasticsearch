@@ -19,10 +19,14 @@ test:
     - docker run -d -v $(pwd):/data --name c1 es_trusty
     - docker run -d -v $(pwd):/data --name c2 es_precise
     - docker run -d -v $(pwd):/data --name c3 es_jessie
-    - docker run -d -v $(pwd):/data --name c4 es_wheezy
     - docker run -d -v $(pwd):/data --name c6 es_centos6
 
-    - docker run -d -v $(pwd):/data --name c5 es_centos7
+    - docker run -d --name c4 es_wheezy
+    - sleep 30
+    - IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' c4)  ;  echo http://$IP:9200/ > url
+    - cat url  |  xargs -t -n 1 curl -v -o result-debian7
+
+    - docker run -d --name c5 es_centos7
     - sleep 30
     - IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' c5)  ;  echo http://$IP:9200/ > url
     - cat url  |  xargs -t -n 1 curl -v -o result-centos7

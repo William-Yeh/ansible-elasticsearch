@@ -16,7 +16,7 @@ MAINTAINER William Yeh <william.pjyeh@gmail.com>
 
 ENV REQUIREMENTS  test-requirements.yml
 ENV PLAYBOOK      test.yml
-RUN ansible-playbook-wrapper
+RUN ansible-playbook-wrapper --extra-vars "elasticsearch_use_service=False" -vvv
 
 
 
@@ -31,7 +31,7 @@ RUN echo "===> Installing curl for testing purpose..."  && \
 COPY test/gen-url.sh  /
 
 
-VOLUME ["/data"]
-ENV    RESULT     /data/result-debian7
+#VOLUME ["/data"]
+#ENV    RESULT     /data/result-debian7
 
-CMD  service elasticsearch start  &&  sleep 30  &&  /gen-url.sh > url  &&  cat url | xargs -t -n 1 curl -v -o $RESULT
+CMD  /usr/share/elasticsearch/bin/elasticsearch

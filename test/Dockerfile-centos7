@@ -33,7 +33,7 @@ RUN echo "===> Installing curl for testing purpose..."  && \
 COPY test/gen-url.sh  /
 
 
-VOLUME ["/data"]
-ENV    RESULT     /data/result-centos7
+#VOLUME ["/data"]
+#ENV    RESULT     /data/result-centos7
 
-CMD  /usr/sharelasticsearch/bin/elasticsearch
+CMD  /usr/share/elasticsearch/bin/elasticsearch
