@@ -173,7 +173,7 @@ Your target hosts should have JDK pre-installed.  You may use [williamyeh.oracle
 
 ## License
 
-Licensed under the Apache License V2.0. See the [LICENSE file](LICENSE) for details.
+Licensed under the MIT License. See the [LICENSE file](LICENSE) for details.
 
 
 ## History
