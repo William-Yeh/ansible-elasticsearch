@@ -9,13 +9,13 @@ williamyeh.elasticsearch for Ansible Galaxy
 
 ## Summary
 
-Role name in Ansible Galaxy: **[williamyeh.elasticsearch](https://galaxy.ansible.com/list#/roles/2859)**
+Role name in Ansible Galaxy: **[williamyeh.elasticsearch](https://galaxy.ansible.com/detail#/role/2859)**
 
 This Ansible role has the following features for [Elasticsearch](http://www.elasticsearch.org/):
 
  - Install Elasticsearch.
  - Specify heap size and G1GC for JVM, if requested.
- - Install plugins.
+ - Install plugins (standard and 3rd party).
  - Bare bone configuration (*real* configuration should be left to user's template files; see **Usage** section below).
 
 
@@ -51,11 +51,14 @@ elasticsearch_conf_template
 User-installable plugins:
 
 ```yaml
-# an array of plugins (registered in elasticsearch.org) to be installed
+# an array of plugins (registered in elasticsearch.org) to be installed.
 # @see http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/modules-plugins.html
 elasticsearch_plugins
 
-# an array of other plugins to be installed
+# an array of other plugins to be installed.
+# each item in the array should have at least the following keys:
+#  - "name", the plugin name excluding the ".jar" substring.
+#  - "url", pointing to the url of the jar file.
 elasticsearch_other_plugins
 ```
 
@@ -150,6 +153,7 @@ More practical example:
     elasticsearch_version: 1.4.2
 
     elasticsearch_plugins:
+      - elasticsearch/marvel/latest
       - lmenezes/elasticsearch-kopf
 
     elasticsearch_other_plugins:
