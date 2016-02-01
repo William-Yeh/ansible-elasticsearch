@@ -12,9 +12,20 @@
   yum: name=libselinux-python state=present
 
 
+- name: set daemon dir for >= 2.0.0
+  set_fact:
+    elasticsearch_rpmfile: "https://download.elasticsearch.org/elasticsearch/release/org/elasticsearch/distribution/rpm/elasticsearch/{{ elasticsearch_version }}/elasticsearch-{{ elasticsearch_version }}.rpm"
+  when: elasticsearch_version | version_compare('2.0.0', '>=')
+
+- name: set daemon dir for < 2.0.0
+  set_fact:
+    elasticsearch_rpmfile: "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.noarch.rpm"
+  when: elasticsearch_version | version_compare('2.0.0', '<')
+
+
 - name: download and install from RPM
   yum:
-    name: "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.noarch.rpm"
+    name: "{{ elasticsearch_rpmfile }}"
     state: present
 
 

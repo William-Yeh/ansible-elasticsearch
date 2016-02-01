@@ -24,14 +24,14 @@ RUN ansible-playbook-wrapper -vvv
 # test phase
 #
 
-RUN echo "===> Installing curl for testing purpose..."  && \
+RUN echo "===> Installing curl and ps for testing purpose..."  && \
     DEBIAN_FRONTEND=noninteractive  \
-    apt-get install -y -f curl
+    apt-get install -y -f curl procps
 
 
 VOLUME ["/data"]
 ENV    RESULT     /data/result-debian7
 
 CMD \
-    /usr/share/elasticsearch/bin/elasticsearch -d  &&  sleep 30  && \
+    service elasticsearch start  &&  sleep 30  && \
     curl --retry 5 --retry-max-time 120  http://localhost:9200/  -v -o $RESULT

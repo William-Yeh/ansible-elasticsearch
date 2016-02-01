@@ -35,5 +35,5 @@ VOLUME ["/data"]
 ENV    RESULT     /data/result-centos7
 
 CMD \
-    /usr/share/elasticsearch/bin/elasticsearch -d  &&  sleep 30  && \
+    /etc/init.d/elasticsearch start   &&  sleep 30  && \
     curl --retry 5 --retry-max-time 120  http://localhost:9200/  -v -o $RESULT
