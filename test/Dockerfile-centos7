@@ -30,10 +30,10 @@ RUN ansible-playbook-wrapper --extra-vars "elasticsearch_use_service=False" -vvv
 RUN echo "===> Installing curl for testing purpose..."  && \
     yum -y install curl
 
-COPY test/gen-url.sh  /
 
+VOLUME ["/data"]
+ENV    RESULT     /data/result-centos7
 
-#VOLUME ["/data"]
-#ENV    RESULT     /data/result-centos7
-
-CMD  /usr/share/elasticsearch/bin/elasticsearch
+CMD \
+    /usr/share/elasticsearch/bin/elasticsearch -d  &&  sleep 30  && \
+    curl --retry 5 --retry-max-time 120  http://localhost:9200/  -v -o $RESULT

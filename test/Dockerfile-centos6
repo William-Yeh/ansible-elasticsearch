@@ -30,10 +30,10 @@ RUN ansible-playbook-wrapper -vvv
 RUN echo "===> Installing curl for testing purpose..."  && \
     yum -y install curl
 
-COPY test/gen-url.sh  /
-
 
 VOLUME ["/data"]
 ENV    RESULT     /data/result-centos6
 
-CMD  service elasticsearch start  &&  sleep 30  &&  /gen-url.sh > url  &&  cat url | xargs -t -n 1 curl -v -o $RESULT
+CMD \
+    service elasticsearch start  &&  sleep 30  && \
+    curl --retry 5 --retry-max-time 120  http://localhost:9200/  -v -o $RESULT

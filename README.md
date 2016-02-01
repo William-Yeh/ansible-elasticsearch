@@ -2,14 +2,12 @@
 williamyeh.elasticsearch for Ansible Galaxy
 ============
 
-[![Circle CI](https://circleci.com/gh/William-Yeh/ansible-elasticsearch.svg?style=shield)](https://circleci.com/gh/William-Yeh/ansible-elasticsearch)
-
-
+[![Circle CI](https://circleci.com/gh/William-Yeh/ansible-elasticsearch.svg?style=shield)](https://circleci.com/gh/William-Yeh/ansible-elasticsearch) [![Build Status](https://travis-ci.org/William-Yeh/ansible-elasticsearch.svg?branch=master)](https://travis-ci.org/William-Yeh/ansible-elasticsearch)
 
 
 ## Summary
 
-Role name in Ansible Galaxy: **[williamyeh.elasticsearch](https://galaxy.ansible.com/detail#/role/2859)**
+Role name in Ansible Galaxy: **[williamyeh.elasticsearch](https://galaxy.ansible.com/williamyeh/elasticsearch/)**
 
 This Ansible role has the following features for [Elasticsearch](http://www.elasticsearch.org/):
 
@@ -172,7 +170,7 @@ More practical example:
 
 ## Dependencies
 
-Your target hosts should have JDK pre-installed.  You may use [williamyeh.oracle-java](https://galaxy.ansible.com/list#/roles/2851) or other roles existed in Ansible Galaxy.
+Your target hosts should have JDK pre-installed.  You may use [williamyeh.oracle-java](https://galaxy.ansible.com/williamyeh/oracle-java/) or other roles existed in Ansible Galaxy.
 
 
 ## License

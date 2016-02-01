@@ -16,7 +16,7 @@ MAINTAINER William Yeh <william.pjyeh@gmail.com>
 
 ENV REQUIREMENTS  test-requirements.yml
 ENV PLAYBOOK      test.yml
-RUN ansible-playbook-wrapper --extra-vars "elasticsearch_use_service=False" -vvv
+RUN ansible-playbook-wrapper -vvv
 
 
 
@@ -28,10 +28,10 @@ RUN echo "===> Installing curl for testing purpose..."  && \
     DEBIAN_FRONTEND=noninteractive  \
     apt-get install -y -f curl
 
-COPY test/gen-url.sh  /
 
+VOLUME ["/data"]
+ENV    RESULT     /data/result-debian7
 
-#VOLUME ["/data"]
-#ENV    RESULT     /data/result-debian7
-
-CMD  /usr/share/elasticsearch/bin/elasticsearch
+CMD \
+    /usr/share/elasticsearch/bin/elasticsearch -d  &&  sleep 30  && \
+    curl --retry 5 --retry-max-time 120  http://localhost:9200/  -v -o $RESULT

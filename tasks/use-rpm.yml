@@ -12,11 +12,10 @@
   yum: name=libselinux-python state=present
 
 
-- name: download RPM file
-  get_url: url="https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.noarch.rpm"  dest=/tmp/es.rpm
-
-- name: install from RPM
-  yum: name=/tmp/es.rpm  state=present
+- name: download and install from RPM
+  yum:
+    name: "https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-{{ elasticsearch_version }}.noarch.rpm"
+    state: present
 
 
 - name: set INIT status

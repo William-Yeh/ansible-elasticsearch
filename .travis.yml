@@ -1,9 +1,8 @@
-machine:
-  services:
+sudo: true
+services:
     - docker
 
-dependencies:
-  override:
+before_install:
     - docker info
     - docker version
 
@@ -14,8 +13,7 @@ dependencies:
     - docker build  -f test/Dockerfile-centos7      -t es_centos7  .
     - docker build  -f test/Dockerfile-centos6      -t es_centos6  .
 
-test:
-  override:
+script:
     - docker run  -v $(pwd):/data  es_trusty
     - docker run  -v $(pwd):/data  es_precise
     - docker run  -v $(pwd):/data  es_jessie
@@ -30,3 +28,7 @@ test:
     - grep 'lucene_version'   result-debian7
     - grep 'lucene_version'   result-centos7
     - grep 'lucene_version'   result-centos6
+
+
+notifications:
+    webhooks: https://galaxy.ansible.com/api/v1/notifications/

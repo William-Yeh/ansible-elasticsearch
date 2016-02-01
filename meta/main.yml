@@ -26,11 +26,9 @@ galaxy_info:
               - 6
               - 7
 
-    categories:
-        - database
-        - database:nosql
     galaxy_tags:
-        - database:nosql
+        - database
+        - nosql
         - searchengine
 
 dependencies: []

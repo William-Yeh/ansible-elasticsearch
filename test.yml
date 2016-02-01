@@ -1,5 +1,5 @@
 - hosts: all
-  sudo: True
+  become: True
 
   roles:
     - williamyeh.oracle-java
@@ -12,7 +12,8 @@
     - 'defaults/main.yml'
 
   vars:
-    elasticsearch_version: 1.6.0
+    elasticsearch_version: 2.1.1
+    #elasticsearch_version: 1.7.3
 
     # copy verbatim
     #elasticsearch_conf_copy: "files/elasticsearch.yml"

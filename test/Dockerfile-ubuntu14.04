@@ -28,10 +28,10 @@ RUN echo "===> Installing curl for testing purpose..."  && \
     DEBIAN_FRONTEND=noninteractive  \
     apt-get install -y -f curl
 
-COPY test/gen-url.sh  /
-
 
 VOLUME ["/data"]
 ENV    RESULT     /data/result-ubuntu14.04
 
-CMD  service elasticsearch start  &&  sleep 30  &&  /gen-url.sh > url  &&  cat url | xargs -t -n 1 curl -v -o $RESULT
+CMD \
+    service elasticsearch start  &&  sleep 30  && \
+    curl --retry 5 --retry-max-time 120  http://localhost:9200/  -v -o $RESULT
